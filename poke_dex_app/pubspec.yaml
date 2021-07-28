@@ -32,6 +32,8 @@ dev_dependencies:
   flutter_lints:
   flutter_test:
     sdk: flutter
+  poke_api_client:
+    path: ../poke_api_client
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
