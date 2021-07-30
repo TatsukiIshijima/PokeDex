@@ -23,7 +23,7 @@ void main() {
         PokemonResponse('bulbasaur', 'https://pokeapi.co/api/v2/pokemon/1/')
       ]).toJson());
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenAnswer((_) async => http.Response(mockResponse, 200));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -53,7 +53,7 @@ void main() {
     test('ステータスコードが400の場合はBadRequestのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenAnswer((_) async => http.Response('', 400));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -71,7 +71,7 @@ void main() {
     test('ステータスコードが403の場合はForbiddenのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenAnswer((_) async => http.Response('', 403));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -89,7 +89,7 @@ void main() {
     test('ステータスコードが404の場合はNotFoundのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenAnswer((_) async => http.Response('', 404));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -104,7 +104,7 @@ void main() {
     test('ステータスコードが405の場合はMethodNotAllowedのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenAnswer((_) async => http.Response('', 405));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -122,7 +122,7 @@ void main() {
     test('ステータスコードが406の場合はNotAcceptableのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenAnswer((_) async => http.Response('', 406));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -140,7 +140,7 @@ void main() {
     test('ステータスコードが408の場合はRequestTimeoutのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenAnswer((_) async => http.Response('', 408));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -158,7 +158,7 @@ void main() {
     test('ステータスコードが500の場合はInternalServerErrorのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenAnswer((_) async => http.Response('', 500));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -176,7 +176,7 @@ void main() {
     test('ステータスコードが503の場合はServiceUnavailableのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenAnswer((_) async => http.Response('', 503));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -194,7 +194,7 @@ void main() {
     test('タイムアウトの場合はRequestTimeoutのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenThrow(TimeoutException(''));
 
       final pokeApiClient = PokeApiClient(mockClient);
@@ -212,7 +212,7 @@ void main() {
     test('オフラインの場合はNoInternetConnectionのエラーが返ること', () async {
       final mockClient = MockClient();
       when(mockClient.get(Uri.parse(
-              'https://pokeapi.co/api/v2/pokemon/&limit=20?offset=0')))
+              'https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0')))
           .thenThrow(const SocketException(''));
 
       final pokeApiClient = PokeApiClient(mockClient);

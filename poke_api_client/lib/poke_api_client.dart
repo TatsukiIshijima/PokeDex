@@ -90,7 +90,7 @@ class PokeApiClient extends ApiClient implements IPokeApiClient {
   @override
   Future<PokeApiResult<PokemonListResponse>> getPokemonList(
       {int limit = 20, int offset = 0}) async {
-    final url = '$_baseUrl/pokemon/&limit=$limit?offset=$offset';
+    final url = '$_baseUrl/pokemon/?limit=$limit&offset=$offset';
     return _responseJson(url, (json) => PokemonListResponse.fromJson(json));
   }
 }
