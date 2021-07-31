@@ -1,25 +1,29 @@
 import 'package:poke_api_client/poke_api_error.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_list_response.dart';
+import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
 
-class PokeListFetchAction {
-  PokeListFetchAction(this.offset, this.limit);
+// 2. action 定義
+class FetchPokeListAction {
+  FetchPokeListAction({
+    required this.offset,
+    required this.limit,
+  });
 
   final int offset;
   final int limit;
 }
 
-class PokeListLoadingAction {}
+class ShowPokeListAction {
+  ShowPokeListAction(
+    this.pokemonList,
+  );
 
-class PokeListEmptyAction {}
-
-class PokeListErrorAction {
-  PokeListErrorAction(this.apiError);
-
-  final PokeApiError apiError;
+  final List<PokemonResponse> pokemonList;
 }
 
-class PokeListShowAction {
-  PokeListShowAction(this.result);
+class ShowPokeApiErrorAction {
+  ShowPokeApiErrorAction(
+    this.apiError,
+  );
 
-  final PokemonListResponse result;
+  final PokeApiError apiError;
 }

@@ -1,17 +1,53 @@
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:poke_dex_app/gen/assets.gen.dart';
 import 'package:poke_dex_app/gen/colors.gen.dart';
+import 'package:poke_dex_app/pages/loading_view.dart';
+import 'package:poke_dex_app/poke_list_actions.dart';
+import 'package:poke_dex_app/poke_list_state.dart';
+import 'package:poke_dex_app/states/poke_dex_app_state.dart';
 
 class PokeListPage extends StatelessWidget {
   const PokeListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorName.background,
-      body: Container(
+    return StoreConnector<PokeDexAppState, _PokeListPageViewModel>(
+      onInit: (store) {
+        store.dispatch(
+          FetchPokeListAction(offset: 0, limit: 20),
+        );
+      },
+      converter: (store) => _PokeListPageViewModel(
+        state: store.state.pokeListState,
+      ),
+      builder: (
+        BuildContext context,
+        _PokeListPageViewModel viewModel,
+      ) {
+        return Scaffold(
+          backgroundColor: ColorName.background,
+          body: Stack(
+            children: [
+              _buildBody(viewModel.state),
+              if (viewModel.state.loadingState.isLoading) LoadingView(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildBody(PokeListState state) {
+    if (state.errorState.apiErrorState != null) {
+      return Center(
+        child: Text(
+          'Error : ${state.errorState.apiErrorState?.apiError}',
+        ),
+      );
+    } else {
+      return Container(
         margin: const EdgeInsets.all(6),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -19,18 +55,16 @@ class PokeListPage extends StatelessWidget {
             mainAxisSpacing: 6,
             crossAxisCount: 2,
           ),
-          itemCount: 10,
+          itemCount: state.pokemonList.length,
           itemBuilder: (BuildContext context, int index) {
-            // TODO : fetch data
             return _PokemonItem(
-              pokeName: 'pokeName',
-              imageUrl:
-                  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png',
+              pokeName: state.pokemonList[index].name,
+              imageUrl: state.pokemonList[index].getImageUrl(),
             );
           },
         ),
-      ),
-    );
+      );
+    }
   }
 }
 
@@ -105,4 +139,12 @@ class _PokemonItem extends StatelessWidget {
       },
     );
   }
+}
+
+class _PokeListPageViewModel {
+  _PokeListPageViewModel({
+    required this.state,
+  });
+
+  final PokeListState state;
 }
