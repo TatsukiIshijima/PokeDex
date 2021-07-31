@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:poke_dex_app/poke_list_state.dart';
+import 'package:poke_dex_app/states/poke_list_state.dart';
 
 // 1. state 定義
 // state は Reducer で更新される

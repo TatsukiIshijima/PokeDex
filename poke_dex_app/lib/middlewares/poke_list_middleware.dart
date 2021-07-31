@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:async/async.dart';
 import 'package:poke_api_client/poke_api_client.dart';
-import 'package:poke_dex_app/poke_list_actions.dart';
+import 'package:poke_dex_app/actions/poke_list_actions.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
 import 'package:redux/redux.dart';
 

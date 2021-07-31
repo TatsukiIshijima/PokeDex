@@ -1,4 +1,4 @@
-import 'package:poke_dex_app/poke_list_actions.dart';
+import 'package:poke_dex_app/actions/poke_list_actions.dart';
 import 'package:poke_dex_app/states/error_state.dart';
 
 ErrorState errorReducer(ErrorState oldState, dynamic action) {

@@ -1,12 +1,12 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:poke_dex_app/actions/poke_list_actions.dart';
 import 'package:poke_dex_app/gen/assets.gen.dart';
 import 'package:poke_dex_app/gen/colors.gen.dart';
 import 'package:poke_dex_app/pages/loading_view.dart';
-import 'package:poke_dex_app/poke_list_actions.dart';
-import 'package:poke_dex_app/poke_list_state.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
+import 'package:poke_dex_app/states/poke_list_state.dart';
 
 class PokeListPage extends StatelessWidget {
   const PokeListPage({Key? key}) : super(key: key);

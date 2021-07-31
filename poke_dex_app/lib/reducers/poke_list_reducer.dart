@@ -29,10 +29,10 @@
 //         ? PokeListEmpty()
 //         : PokeListShow(action.result);
 
-import 'package:poke_dex_app/poke_list_actions.dart';
-import 'package:poke_dex_app/poke_list_state.dart';
+import 'package:poke_dex_app/actions/poke_list_actions.dart';
 import 'package:poke_dex_app/reducers/error_reducer.dart';
 import 'package:poke_dex_app/reducers/loading_reducer.dart';
+import 'package:poke_dex_app/states/poke_list_state.dart';
 import 'package:redux/redux.dart';
 
 // 3. reducer 定義
