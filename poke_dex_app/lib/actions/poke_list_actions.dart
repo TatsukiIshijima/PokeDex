@@ -6,16 +6,16 @@ class FetchPokeListAction {
   FetchPokeListAction({
     required this.offset,
     required this.limit,
+    this.isRefresh = false,
   });
 
   final int offset;
   final int limit;
+  final bool isRefresh;
 }
 
 class ShowPokeListAction {
-  ShowPokeListAction(
-    this.pokemonList,
-  );
+  ShowPokeListAction(this.pokemonList);
 
   final List<PokemonResponse> pokemonList;
 }

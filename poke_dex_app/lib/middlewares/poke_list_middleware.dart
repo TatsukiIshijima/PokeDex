@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:async/async.dart';
 import 'package:poke_api_client/poke_api_client.dart';
+import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
 import 'package:poke_dex_app/actions/poke_list_actions.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
 import 'package:redux/redux.dart';
@@ -30,8 +31,12 @@ class PokeListMiddleware implements MiddlewareClass<PokeDexAppState> {
               .then(
                 (result) => result.when(
                   success: (response) {
-                    return store
-                      ..dispatch(ShowPokeListAction(response.results));
+                    final pokemonList = <PokemonResponse>[];
+                    if (!action.isRefresh) {
+                      pokemonList.addAll(store.state.pokeListState.pokemonList);
+                    }
+                    pokemonList.addAll(response.results);
+                    return store..dispatch(ShowPokeListAction(pokemonList));
                   },
                   failure: (error) {
                     return store..dispatch(ShowPokeApiErrorAction(error));

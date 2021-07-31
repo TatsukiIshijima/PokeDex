@@ -16,11 +16,23 @@ class PokeListPage extends StatelessWidget {
     return StoreConnector<PokeDexAppState, _PokeListPageViewModel>(
       onInit: (store) {
         store.dispatch(
-          FetchPokeListAction(offset: 0, limit: 20),
+          FetchPokeListAction(
+            offset: 0,
+            limit: 20,
+          ),
         );
       },
       converter: (store) => _PokeListPageViewModel(
         state: store.state.pokeListState,
+        onRefresh: () {
+          store.dispatch(
+            FetchPokeListAction(
+              offset: 0,
+              limit: 20,
+              isRefresh: true,
+            ),
+          );
+        },
       ),
       builder: (
         BuildContext context,
@@ -30,7 +42,10 @@ class PokeListPage extends StatelessWidget {
           backgroundColor: ColorName.background,
           body: Stack(
             children: [
-              _buildBody(viewModel.state),
+              _buildBody(
+                viewModel.state,
+                viewModel.onRefresh,
+              ),
               if (viewModel.state.loadingState.isLoading) const LoadingView(),
             ],
           ),
@@ -39,7 +54,10 @@ class PokeListPage extends StatelessWidget {
     );
   }
 
-  Widget _buildBody(PokeListState state) {
+  Widget _buildBody(
+    PokeListState state,
+    void Function() onRefresh,
+  ) {
     if (state.errorState.apiErrorState != null) {
       return Center(
         child: Text(
@@ -47,21 +65,26 @@ class PokeListPage extends StatelessWidget {
         ),
       );
     } else {
-      return Container(
-        margin: const EdgeInsets.all(6),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 6,
-            mainAxisSpacing: 6,
-            crossAxisCount: 2,
+      return RefreshIndicator(
+        onRefresh: () async {
+          onRefresh();
+        },
+        child: Container(
+          margin: const EdgeInsets.all(6),
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisSpacing: 6,
+              mainAxisSpacing: 6,
+              crossAxisCount: 2,
+            ),
+            itemCount: state.pokemonList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _PokemonItem(
+                pokeName: state.pokemonList[index].name,
+                imageUrl: state.pokemonList[index].getImageUrl(),
+              );
+            },
           ),
-          itemCount: state.pokemonList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return _PokemonItem(
-              pokeName: state.pokemonList[index].name,
-              imageUrl: state.pokemonList[index].getImageUrl(),
-            );
-          },
         ),
       );
     }
@@ -144,7 +167,9 @@ class _PokemonItem extends StatelessWidget {
 class _PokeListPageViewModel {
   _PokeListPageViewModel({
     required this.state,
+    required this.onRefresh,
   });
 
   final PokeListState state;
+  final void Function() onRefresh;
 }
