@@ -31,7 +31,7 @@ class PokeListPage extends StatelessWidget {
           body: Stack(
             children: [
               _buildBody(viewModel.state),
-              if (viewModel.state.loadingState.isLoading) LoadingView(),
+              if (viewModel.state.loadingState.isLoading) const LoadingView(),
             ],
           ),
         );
