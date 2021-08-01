@@ -1,5 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:poke_dex_app/actions/poke_list_actions.dart';
 import 'package:poke_dex_app/gen/assets.gen.dart';
@@ -13,34 +14,34 @@ class PokeListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<PokeDexAppState, _PokeListPageViewModel>(
-      onInit: (store) {
-        store.dispatch(
-          FetchPokeListAction(
-            offset: 0,
-            limit: 20,
-          ),
-        );
-      },
-      converter: (store) => _PokeListPageViewModel(
-        state: store.state.pokeListState,
-        onRefresh: () {
+    return Scaffold(
+      backgroundColor: ColorName.background,
+      body: StoreConnector<PokeDexAppState, _PokeListPageViewModel>(
+        onInit: (store) {
           store.dispatch(
             FetchPokeListAction(
               offset: 0,
               limit: 20,
-              isRefresh: true,
             ),
           );
         },
-      ),
-      builder: (
-        BuildContext context,
-        _PokeListPageViewModel viewModel,
-      ) {
-        return Scaffold(
-          backgroundColor: ColorName.background,
-          body: Stack(
+        converter: (store) => _PokeListPageViewModel(
+          state: store.state.pokeListState,
+          onRefresh: () {
+            store.dispatch(
+              FetchPokeListAction(
+                offset: 0,
+                limit: 20,
+                isRefresh: true,
+              ),
+            );
+          },
+        ),
+        builder: (
+          BuildContext context,
+          _PokeListPageViewModel viewModel,
+        ) {
+          return Stack(
             children: [
               _buildBody(
                 viewModel.state,
@@ -48,9 +49,9 @@ class PokeListPage extends StatelessWidget {
               ),
               if (viewModel.state.loadingState.isLoading) const LoadingView(),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -65,27 +66,36 @@ class PokeListPage extends StatelessWidget {
         ),
       );
     } else {
-      return RefreshIndicator(
+      return /*RefreshIndicator(
         onRefresh: () async {
           onRefresh();
         },
-        child: Container(
-          margin: const EdgeInsets.all(6),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 6,
-              mainAxisSpacing: 6,
-              crossAxisCount: 2,
-            ),
-            itemCount: state.pokemonList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _PokemonItem(
-                pokeName: state.pokemonList[index].name,
-                imageUrl: state.pokemonList[index].getImageUrl(),
-              );
-            },
+        child:*/
+          CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            title: Text('PokeDexApp'),
           ),
-        ),
+          SliverPadding(
+            padding: const EdgeInsets.all(6),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 6,
+                mainAxisSpacing: 6,
+                crossAxisCount: 2,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return _PokemonItem(
+                    pokeName: state.pokemonList[index].name,
+                    imageUrl: state.pokemonList[index].getImageUrl(),
+                  );
+                },
+                childCount: state.pokemonList.length,
+              ),
+            ),
+          ),
+        ],
       );
     }
   }
