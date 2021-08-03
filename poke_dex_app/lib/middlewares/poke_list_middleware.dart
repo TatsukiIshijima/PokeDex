@@ -10,42 +10,45 @@ import 'package:redux/redux.dart';
 class PokeListMiddleware implements MiddlewareClass<PokeDexAppState> {
   PokeListMiddleware(this._pokeApiClient);
 
-  final PokeApiClient _pokeApiClient;
+  final IPokeApiClient _pokeApiClient;
 
   Timer? _timer;
   CancelableOperation<Store<PokeDexAppState>>? _operation;
 
   @override
   void call(Store<PokeDexAppState> store, dynamic action, NextDispatcher next) {
-    if (action is FetchPokeListAction) {
-      _timer?.cancel();
-      _operation?.cancel();
-
-      _timer = Timer(const Duration(microseconds: 250), () {
-        _operation = CancelableOperation.fromFuture(
-          _pokeApiClient
-              .getPokemonList(
-                offset: action.offset,
-                limit: action.limit,
-              )
-              .then(
-                (result) => result.when(
-                  success: (response) {
-                    final pokemonList = <PokemonResponse>[];
-                    if (!action.isRefresh) {
-                      pokemonList.addAll(store.state.pokeListState.pokemonList);
-                    }
-                    pokemonList.addAll(response.results);
-                    return store..dispatch(ShowPokeListAction(pokemonList));
-                  },
-                  failure: (error) {
-                    return store..dispatch(ShowPokeApiErrorAction(error));
-                  },
-                ),
-              ),
-        );
-      });
+    if (action is! FetchPokeListAction) {
+      next(action);
+      return;
     }
+
+    _timer?.cancel();
+    _operation?.cancel();
+
+    _timer = Timer(const Duration(microseconds: 250), () {
+      _operation = CancelableOperation.fromFuture(
+        _pokeApiClient
+            .getPokemonList(
+              offset: action.offset,
+              limit: action.limit,
+            )
+            .then(
+              (result) => result.when(
+                success: (response) {
+                  final pokemonList = <PokemonResponse>[];
+                  if (!action.isRefresh) {
+                    pokemonList.addAll(store.state.pokeListState.pokemonList);
+                  }
+                  pokemonList.addAll(response.results);
+                  return store..dispatch(ShowPokeListAction(pokemonList));
+                },
+                failure: (error) {
+                  return store..dispatch(ShowPokeApiErrorAction(error));
+                },
+              ),
+            ),
+      );
+    });
     next(action);
   }
 }
