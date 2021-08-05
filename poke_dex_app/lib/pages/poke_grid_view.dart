@@ -1,5 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
 import 'package:poke_dex_app/gen/assets.gen.dart';
 import 'package:poke_dex_app/gen/colors.gen.dart';
@@ -58,50 +59,106 @@ class _PokemonItem extends StatelessWidget {
       loadStateChanged: (state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: ColorName.gray21,
-                ),
-                borderRadius: BorderRadius.circular(14),
-                color: ColorName.gray21,
-              ),
-              child: Image.asset(
-                Assets.images.monsterBall.path,
-              ),
-            );
+            return const _PokemonItemLoading();
           case LoadState.failed:
-            break;
+            // TODO: define failed widget
+            return Container();
           case LoadState.completed:
-            return Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: ColorName.gray21,
-                ),
-                borderRadius: BorderRadius.circular(14),
-                color: ColorName.gray21,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ExtendedRawImage(
-                    image: state.extendedImageInfo?.image,
-                    width: imageWidth,
-                    height: imageHeight,
-                  ),
-                  Text(
-                    pokeName,
-                    style: const TextStyle(
-                      color: ColorName.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+            return _PokemonItemPalette(
+              pokeName: pokeName,
+              pokeImage: state.imageProvider,
+              imageWidth: imageWidth,
+              imageHeight: imageHeight,
             );
         }
       },
+    );
+  }
+}
+
+class _PokemonItemPalette extends StatelessWidget {
+  const _PokemonItemPalette({
+    Key? key,
+    required this.pokeImage,
+    required this.pokeName,
+    required this.imageWidth,
+    required this.imageHeight,
+  }) : super(key: key);
+
+  final ImageProvider pokeImage;
+  final String pokeName;
+  final double imageWidth;
+  final double imageHeight;
+
+  Future<PaletteGenerator> _updatePaletteGenerator() async {
+    return PaletteGenerator.fromImageProvider(
+      pokeImage,
+      size: Size(imageWidth, imageHeight),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<PaletteGenerator>(
+      future: _updatePaletteGenerator(),
+      builder:
+          (BuildContext context, AsyncSnapshot<PaletteGenerator> snapshot) {
+        if (snapshot.hasError) {
+          // TODO: define failed widget.
+          return Container();
+        }
+        final domainColor =
+            snapshot.data?.dominantColor?.color ?? ColorName.white;
+        return Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: domainColor,
+            ),
+            borderRadius: BorderRadius.circular(14),
+            color: domainColor,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ExtendedImage(
+                image: pokeImage,
+                width: imageWidth,
+                height: imageHeight,
+              ),
+              Text(
+                pokeName,
+                style: const TextStyle(
+                  color: ColorName.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _PokemonItemLoading extends StatelessWidget {
+  const _PokemonItemLoading({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: ColorName.white,
+        ),
+        borderRadius: BorderRadius.circular(14),
+        color: ColorName.black,
+      ),
+      child: Image.asset(
+        Assets.images.monsterBall.path,
+      ),
     );
   }
 }
