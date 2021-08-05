@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:async/async.dart';
 import 'package:poke_api_client/poke_api_client.dart';
 import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
@@ -12,7 +10,6 @@ class PokeListMiddleware implements MiddlewareClass<PokeDexAppState> {
 
   final IPokeApiClient _pokeApiClient;
 
-  Timer? _timer;
   CancelableOperation<Store<PokeDexAppState>>? _operation;
 
   @override
@@ -22,33 +19,30 @@ class PokeListMiddleware implements MiddlewareClass<PokeDexAppState> {
       return;
     }
 
-    _timer?.cancel();
     _operation?.cancel();
 
-    _timer = Timer(const Duration(microseconds: 250), () {
-      _operation = CancelableOperation.fromFuture(
-        _pokeApiClient
-            .getPokemonList(
-              offset: action.offset,
-              limit: action.limit,
-            )
-            .then(
-              (result) => result.when(
-                success: (response) {
-                  final pokemonList = <PokemonResponse>[];
-                  if (!action.isRefresh) {
-                    pokemonList.addAll(store.state.pokeListState.pokemonList);
-                  }
-                  pokemonList.addAll(response.results);
-                  return store..dispatch(ShowPokeListAction(pokemonList));
-                },
-                failure: (error) {
-                  return store..dispatch(ShowPokeApiErrorAction(error));
-                },
-              ),
+    _operation = CancelableOperation.fromFuture(
+      _pokeApiClient
+          .getPokemonList(
+            offset: action.offset,
+            limit: action.limit,
+          )
+          .then(
+            (result) => result.when(
+              success: (response) {
+                final pokemonList = <PokemonResponse>[];
+                if (!action.isRefresh) {
+                  pokemonList.addAll(store.state.pokeListState.pokemonList);
+                }
+                pokemonList.addAll(response.results);
+                return store..dispatch(ShowPokeListAction(pokemonList));
+              },
+              failure: (error) {
+                return store..dispatch(ShowPokeApiErrorAction(error));
+              },
             ),
-      );
-    });
+          ),
+    );
     next(action);
   }
 }
