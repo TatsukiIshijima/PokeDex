@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:poke_api_client/poke_api_client.dart';
 import 'package:poke_api_client/poke_api_result.dart';
 import 'package:poke_api_client/response/pokemon/pokemon_list_response.dart';
 import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
@@ -11,12 +9,8 @@ import 'package:poke_dex_app/reducers/poke_dex_app_reducer.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
 import 'package:redux/redux.dart';
 
-import 'poke_list_middleware_test.mocks.dart';
+import 'mock_generator.mocks.dart';
 
-@GenerateMocks([
-  IPokeApiClient,
-  MiddlewareClass,
-])
 void main() {
   group('PokeListMiddleware', () {
     final mockPokeApiClient = MockIPokeApiClient();
