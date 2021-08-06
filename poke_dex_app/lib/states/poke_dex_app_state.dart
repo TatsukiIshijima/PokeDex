@@ -12,4 +12,17 @@ class PokeDexAppState {
   });
 
   final PokeListState pokeListState;
+
+  @override
+  int get hashCode => pokeListState.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PokeDexAppState &&
+          runtimeType == other.runtimeType &&
+          pokeListState == other.pokeListState;
+
+  @override
+  String toString() => 'PokeDexAppState{pokeListState: $pokeListState}';
 }

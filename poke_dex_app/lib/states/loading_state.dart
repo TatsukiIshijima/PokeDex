@@ -7,4 +7,17 @@ class LoadingState {
   });
 
   final bool isLoading;
+
+  @override
+  int get hashCode => isLoading.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LoadingState &&
+          runtimeType == other.runtimeType &&
+          isLoading == other.isLoading;
+
+  @override
+  String toString() => 'LoadingState{isLoading: $isLoading}';
 }

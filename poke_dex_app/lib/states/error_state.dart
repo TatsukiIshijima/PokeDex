@@ -8,6 +8,19 @@ class ErrorState {
   });
 
   final ApiErrorState? apiErrorState;
+
+  @override
+  int get hashCode => apiErrorState.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ErrorState &&
+          runtimeType == other.runtimeType &&
+          apiErrorState == other.apiErrorState;
+
+  @override
+  String toString() => 'ErrorState{apiErrorState: $apiErrorState';
 }
 
 @immutable
@@ -17,4 +30,17 @@ class ApiErrorState {
   });
 
   final PokeApiError apiError;
+
+  @override
+  int get hashCode => apiError.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ApiErrorState &&
+          runtimeType == other.runtimeType &&
+          apiError == other.apiError;
+
+  @override
+  String toString() => 'ApiErrorState{apiError: ${apiError.runtimeType}';
 }

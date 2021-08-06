@@ -18,4 +18,30 @@ class PokeListState {
   final List<PokemonResponse> pokemonList;
   final LoadingState loadingState;
   final ErrorState errorState;
+
+  @override
+  int get hashCode =>
+      offset.hashCode ^
+      limit.hashCode ^
+      pokemonList.hashCode ^
+      loadingState.hashCode ^
+      errorState.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PokeListState &&
+          runtimeType == other.runtimeType &&
+          offset == other.offset &&
+          limit == other.limit &&
+          pokemonList == other.pokemonList &&
+          loadingState == other.loadingState &&
+          errorState == other.errorState;
+
+  @override
+  String toString() => 'PokeListState{offset: $offset, '
+      'limit: $limit, '
+      'pokemonList: $pokemonList, '
+      'loadingState: $loadingState, '
+      'errorState: $errorState}';
 }
