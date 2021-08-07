@@ -8,8 +8,8 @@ import 'package:poke_dex_app/pages/poke_grid_view.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
 import 'package:poke_dex_app/states/poke_list_state.dart';
 
-class PokeListPage extends StatelessWidget {
-  const PokeListPage({
+class PokeListScreen extends StatelessWidget {
+  const PokeListScreen({
     Key? key,
   }) : super(key: key);
 

@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
 import 'package:poke_api_client/poke_api_client.dart';
 import 'package:poke_dex_app/middlewares/poke_dex_app_middleware.dart';
-import 'package:poke_dex_app/pages/poke_list_page.dart';
+import 'package:poke_dex_app/pages/poke_list_screen.dart';
 import 'package:poke_dex_app/reducers/poke_dex_app_reducer.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
 import 'package:poke_dex_app/themes/poke_dex_theme_data.dart';
@@ -43,7 +43,7 @@ class PokeDexApp extends StatelessWidget {
       child: MaterialApp(
         title: 'PokeDexApp',
         theme: PokeDexThemeData.themeData(),
-        home: const PokeListPage(),
+        home: const PokeListScreen(),
       ),
     );
   }
