@@ -145,6 +145,9 @@ class _PokeListPageBodyState extends State<_PokeListPageBody> {
               padding: const EdgeInsets.all(6),
               sliver: PokeGridView(
                 pokemonList: widget.pokeListState.pokemonList,
+                onTap: (index) {
+                  print('tap index: $index');
+                },
               ),
             ),
         ],

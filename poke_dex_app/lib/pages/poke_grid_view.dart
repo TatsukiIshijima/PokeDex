@@ -9,9 +9,11 @@ class PokeGridView extends StatelessWidget {
   const PokeGridView({
     Key? key,
     required this.pokemonList,
+    this.onTap,
   }) : super(key: key);
 
   final List<PokemonResponse> pokemonList;
+  final Function(int index)? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,17 @@ class PokeGridView extends StatelessWidget {
       ),
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
-          return _PokemonItem(
-            pokeName: pokemonList[index].name,
-            imageUrl: pokemonList[index].getImageUrl(),
+          return InkWell(
+            onTap: () {
+              if (onTap != null) {
+                print('index : $index');
+                onTap!(index);
+              }
+            },
+            child: _PokemonItem(
+              pokeName: pokemonList[index].name,
+              imageUrl: pokemonList[index].getImageUrl(),
+            ),
           );
         },
         childCount: pokemonList.length,
