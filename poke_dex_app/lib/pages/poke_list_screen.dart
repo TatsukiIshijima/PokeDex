@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
+import 'package:poke_dex_app/actions/poke_detail_actions.dart';
 import 'package:poke_dex_app/actions/poke_list_actions.dart';
 import 'package:poke_dex_app/gen/colors.gen.dart';
 import 'package:poke_dex_app/pages/loading_view.dart';
@@ -20,7 +22,7 @@ class PokeListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorName.background,
-      body: StoreConnector<PokeDexAppState, _PokeListPageViewModel>(
+      body: StoreConnector<PokeDexAppState, _PokeListViewModel>(
         onInit: (store) {
           store.dispatch(
             FetchPokeListAction(
@@ -29,7 +31,7 @@ class PokeListScreen extends StatelessWidget {
             ),
           );
         },
-        converter: (store) => _PokeListPageViewModel(
+        converter: (store) => _PokeListViewModel(
             state: store.state.pokeListState,
             onRefresh: () {
               store.dispatch(
@@ -57,10 +59,13 @@ class PokeListScreen extends StatelessWidget {
                   limit: limit,
                 ),
               );
+            },
+            onSelect: (pokemon) {
+              store.dispatch(SelectPokeAction(pokemon));
             }),
         builder: (
           BuildContext context,
-          _PokeListPageViewModel viewModel,
+          _PokeListViewModel viewModel,
         ) {
           return Stack(
             children: [
@@ -68,6 +73,7 @@ class PokeListScreen extends StatelessWidget {
                 pokeListState: viewModel.state,
                 onRefresh: viewModel.onRefresh,
                 onLoadMore: viewModel.onLoadMore,
+                onSelect: viewModel.onSelect,
               ),
               if (viewModel.state.loadingState.isLoading) const LoadingView(),
             ],
@@ -83,11 +89,13 @@ class _PokeListPageBody extends StatefulWidget {
     required this.pokeListState,
     required this.onRefresh,
     required this.onLoadMore,
+    required this.onSelect,
   });
 
   final PokeListState pokeListState;
-  final void Function() onRefresh;
-  final void Function() onLoadMore;
+  final Function() onRefresh;
+  final Function() onLoadMore;
+  final Function(PokemonResponse) onSelect;
 
   @override
   State<StatefulWidget> createState() => _PokeListPageBodyState();
@@ -146,7 +154,8 @@ class _PokeListPageBodyState extends State<_PokeListPageBody> {
               sliver: PokeGridView(
                 pokemonList: widget.pokeListState.pokemonList,
                 onTap: (index) {
-                  print('tap index: $index');
+                  final pokemon = widget.pokeListState.pokemonList[index];
+                  widget.onSelect(pokemon);
                 },
               ),
             ),
@@ -156,14 +165,16 @@ class _PokeListPageBodyState extends State<_PokeListPageBody> {
   }
 }
 
-class _PokeListPageViewModel {
-  _PokeListPageViewModel({
+class _PokeListViewModel {
+  _PokeListViewModel({
     required this.state,
     required this.onRefresh,
     required this.onLoadMore,
+    required this.onSelect,
   });
 
   final PokeListState state;
-  final void Function() onRefresh;
-  final void Function() onLoadMore;
+  final Function() onRefresh;
+  final Function() onLoadMore;
+  final Function(PokemonResponse) onSelect;
 }
