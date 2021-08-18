@@ -21,10 +21,19 @@ class _$PokemonResponseTearOff {
   const _$PokemonResponseTearOff();
 
   _PokemonResponse call(
-      @JsonKey(name: 'name') String name, @JsonKey(name: 'url') String url) {
+      @JsonKey(name: 'id') int id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'height') int height,
+      @JsonKey(name: 'weight') int weight,
+      @JsonKey(name: 'types') List<PokemonTypeResponse> types,
+      @JsonKey(name: 'species') NamedApiResource species) {
     return _PokemonResponse(
+      id,
       name,
-      url,
+      height,
+      weight,
+      types,
+      species,
     );
   }
 
@@ -38,10 +47,18 @@ const $PokemonResponse = _$PokemonResponseTearOff();
 
 /// @nodoc
 mixin _$PokemonResponse {
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name')
   String get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'url')
-  String get url => throw _privateConstructorUsedError;
+  @JsonKey(name: 'height')
+  int get height => throw _privateConstructorUsedError;
+  @JsonKey(name: 'weight')
+  int get weight => throw _privateConstructorUsedError;
+  @JsonKey(name: 'types')
+  List<PokemonTypeResponse> get types => throw _privateConstructorUsedError;
+  @JsonKey(name: 'species')
+  NamedApiResource get species => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +72,14 @@ abstract class $PokemonResponseCopyWith<$Res> {
           PokemonResponse value, $Res Function(PokemonResponse) then) =
       _$PokemonResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'name') String name, @JsonKey(name: 'url') String url});
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'height') int height,
+      @JsonKey(name: 'weight') int weight,
+      @JsonKey(name: 'types') List<PokemonTypeResponse> types,
+      @JsonKey(name: 'species') NamedApiResource species});
+
+  $NamedApiResourceCopyWith<$Res> get species;
 }
 
 /// @nodoc
@@ -69,19 +93,46 @@ class _$PokemonResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
-    Object? url = freezed,
+    Object? height = freezed,
+    Object? weight = freezed,
+    Object? types = freezed,
+    Object? species = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      url: url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
+      height: height == freezed
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int,
+      weight: weight == freezed
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as int,
+      types: types == freezed
+          ? _value.types
+          : types // ignore: cast_nullable_to_non_nullable
+              as List<PokemonTypeResponse>,
+      species: species == freezed
+          ? _value.species
+          : species // ignore: cast_nullable_to_non_nullable
+              as NamedApiResource,
     ));
+  }
+
+  @override
+  $NamedApiResourceCopyWith<$Res> get species {
+    return $NamedApiResourceCopyWith<$Res>(_value.species, (value) {
+      return _then(_value.copyWith(species: value));
+    });
   }
 }
 
@@ -93,7 +144,15 @@ abstract class _$PokemonResponseCopyWith<$Res>
       __$PokemonResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'name') String name, @JsonKey(name: 'url') String url});
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'height') int height,
+      @JsonKey(name: 'weight') int weight,
+      @JsonKey(name: 'types') List<PokemonTypeResponse> types,
+      @JsonKey(name: 'species') NamedApiResource species});
+
+  @override
+  $NamedApiResourceCopyWith<$Res> get species;
 }
 
 /// @nodoc
@@ -109,59 +168,107 @@ class __$PokemonResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
-    Object? url = freezed,
+    Object? height = freezed,
+    Object? weight = freezed,
+    Object? types = freezed,
+    Object? species = freezed,
   }) {
     return _then(_PokemonResponse(
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
+      height == freezed
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as int,
+      weight == freezed
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as int,
+      types == freezed
+          ? _value.types
+          : types // ignore: cast_nullable_to_non_nullable
+              as List<PokemonTypeResponse>,
+      species == freezed
+          ? _value.species
+          : species // ignore: cast_nullable_to_non_nullable
+              as NamedApiResource,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_PokemonResponse extends _PokemonResponse {
+class _$_PokemonResponse implements _PokemonResponse {
   const _$_PokemonResponse(
-      @JsonKey(name: 'name') this.name, @JsonKey(name: 'url') this.url)
-      : super._();
+      @JsonKey(name: 'id') this.id,
+      @JsonKey(name: 'name') this.name,
+      @JsonKey(name: 'height') this.height,
+      @JsonKey(name: 'weight') this.weight,
+      @JsonKey(name: 'types') this.types,
+      @JsonKey(name: 'species') this.species);
 
   factory _$_PokemonResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_PokemonResponseFromJson(json);
 
   @override
+  @JsonKey(name: 'id')
+  final int id;
+  @override
   @JsonKey(name: 'name')
   final String name;
   @override
-  @JsonKey(name: 'url')
-  final String url;
+  @JsonKey(name: 'height')
+  final int height;
+  @override
+  @JsonKey(name: 'weight')
+  final int weight;
+  @override
+  @JsonKey(name: 'types')
+  final List<PokemonTypeResponse> types;
+  @override
+  @JsonKey(name: 'species')
+  final NamedApiResource species;
 
   @override
   String toString() {
-    return 'PokemonResponse(name: $name, url: $url)';
+    return 'PokemonResponse(id: $id, name: $name, height: $height, weight: $weight, types: $types, species: $species)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _PokemonResponse &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.url, url) ||
-                const DeepCollectionEquality().equals(other.url, url)));
+            (identical(other.height, height) ||
+                const DeepCollectionEquality().equals(other.height, height)) &&
+            (identical(other.weight, weight) ||
+                const DeepCollectionEquality().equals(other.weight, weight)) &&
+            (identical(other.types, types) ||
+                const DeepCollectionEquality().equals(other.types, types)) &&
+            (identical(other.species, species) ||
+                const DeepCollectionEquality().equals(other.species, species)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(url);
+      const DeepCollectionEquality().hash(height) ^
+      const DeepCollectionEquality().hash(weight) ^
+      const DeepCollectionEquality().hash(types) ^
+      const DeepCollectionEquality().hash(species);
 
   @JsonKey(ignore: true)
   @override
@@ -174,20 +281,36 @@ class _$_PokemonResponse extends _PokemonResponse {
   }
 }
 
-abstract class _PokemonResponse extends PokemonResponse {
-  const factory _PokemonResponse(@JsonKey(name: 'name') String name,
-      @JsonKey(name: 'url') String url) = _$_PokemonResponse;
-  const _PokemonResponse._() : super._();
+abstract class _PokemonResponse implements PokemonResponse {
+  const factory _PokemonResponse(
+      @JsonKey(name: 'id') int id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'height') int height,
+      @JsonKey(name: 'weight') int weight,
+      @JsonKey(name: 'types') List<PokemonTypeResponse> types,
+      @JsonKey(name: 'species') NamedApiResource species) = _$_PokemonResponse;
 
   factory _PokemonResponse.fromJson(Map<String, dynamic> json) =
       _$_PokemonResponse.fromJson;
 
   @override
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @override
   @JsonKey(name: 'name')
   String get name => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'url')
-  String get url => throw _privateConstructorUsedError;
+  @JsonKey(name: 'height')
+  int get height => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'weight')
+  int get weight => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'types')
+  List<PokemonTypeResponse> get types => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'species')
+  NamedApiResource get species => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokemonResponseCopyWith<_PokemonResponse> get copyWith =>

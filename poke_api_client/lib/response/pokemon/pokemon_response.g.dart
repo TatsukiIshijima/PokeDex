@@ -8,13 +8,23 @@ part of 'pokemon_response.dart';
 
 _$_PokemonResponse _$_$_PokemonResponseFromJson(Map<String, dynamic> json) {
   return _$_PokemonResponse(
+    json['id'] as int,
     json['name'] as String,
-    json['url'] as String,
+    json['height'] as int,
+    json['weight'] as int,
+    (json['types'] as List<dynamic>)
+        .map((e) => PokemonTypeResponse.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    NamedApiResource.fromJson(json['species'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$_$_PokemonResponseToJson(_$_PokemonResponse instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
-      'url': instance.url,
+      'height': instance.height,
+      'weight': instance.weight,
+      'types': instance.types,
+      'species': instance.species,
     };

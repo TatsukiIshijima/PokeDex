@@ -24,7 +24,7 @@ class _$PokemonListResponseTearOff {
       @JsonKey(name: 'count') int count,
       @JsonKey(name: 'next') String? next,
       @JsonKey(name: 'previous') String? previous,
-      @JsonKey(name: 'results') List<PokemonResponse> results) {
+      @JsonKey(name: 'results') List<NamedApiResource> results) {
     return _PokemonListResponse(
       count,
       next,
@@ -50,7 +50,7 @@ mixin _$PokemonListResponse {
   @JsonKey(name: 'previous')
   String? get previous => throw _privateConstructorUsedError;
   @JsonKey(name: 'results')
-  List<PokemonResponse> get results => throw _privateConstructorUsedError;
+  List<NamedApiResource> get results => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -67,7 +67,7 @@ abstract class $PokemonListResponseCopyWith<$Res> {
       {@JsonKey(name: 'count') int count,
       @JsonKey(name: 'next') String? next,
       @JsonKey(name: 'previous') String? previous,
-      @JsonKey(name: 'results') List<PokemonResponse> results});
+      @JsonKey(name: 'results') List<NamedApiResource> results});
 }
 
 /// @nodoc
@@ -102,7 +102,7 @@ class _$PokemonListResponseCopyWithImpl<$Res>
       results: results == freezed
           ? _value.results
           : results // ignore: cast_nullable_to_non_nullable
-              as List<PokemonResponse>,
+              as List<NamedApiResource>,
     ));
   }
 }
@@ -118,7 +118,7 @@ abstract class _$PokemonListResponseCopyWith<$Res>
       {@JsonKey(name: 'count') int count,
       @JsonKey(name: 'next') String? next,
       @JsonKey(name: 'previous') String? previous,
-      @JsonKey(name: 'results') List<PokemonResponse> results});
+      @JsonKey(name: 'results') List<NamedApiResource> results});
 }
 
 /// @nodoc
@@ -155,7 +155,7 @@ class __$PokemonListResponseCopyWithImpl<$Res>
       results == freezed
           ? _value.results
           : results // ignore: cast_nullable_to_non_nullable
-              as List<PokemonResponse>,
+              as List<NamedApiResource>,
     ));
   }
 }
@@ -183,7 +183,7 @@ class _$_PokemonListResponse implements _PokemonListResponse {
   final String? previous;
   @override
   @JsonKey(name: 'results')
-  final List<PokemonResponse> results;
+  final List<NamedApiResource> results;
 
   @override
   String toString() {
@@ -230,7 +230,7 @@ abstract class _PokemonListResponse implements PokemonListResponse {
           @JsonKey(name: 'count') int count,
           @JsonKey(name: 'next') String? next,
           @JsonKey(name: 'previous') String? previous,
-          @JsonKey(name: 'results') List<PokemonResponse> results) =
+          @JsonKey(name: 'results') List<NamedApiResource> results) =
       _$_PokemonListResponse;
 
   factory _PokemonListResponse.fromJson(Map<String, dynamic> json) =
@@ -247,7 +247,7 @@ abstract class _PokemonListResponse implements PokemonListResponse {
   String? get previous => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'results')
-  List<PokemonResponse> get results => throw _privateConstructorUsedError;
+  List<NamedApiResource> get results => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PokemonListResponseCopyWith<_PokemonListResponse> get copyWith =>

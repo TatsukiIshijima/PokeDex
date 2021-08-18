@@ -13,7 +13,7 @@ _$_PokemonListResponse _$_$_PokemonListResponseFromJson(
     json['next'] as String?,
     json['previous'] as String?,
     (json['results'] as List<dynamic>)
-        .map((e) => PokemonResponse.fromJson(e as Map<String, dynamic>))
+        .map((e) => NamedApiResource.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
