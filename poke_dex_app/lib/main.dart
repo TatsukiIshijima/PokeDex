@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
 import 'package:poke_api_client/poke_api_client.dart';
-import 'package:poke_dex_app/actions/poke_detail_actions.dart';
 import 'package:poke_dex_app/middlewares/poke_dex_app_middleware.dart';
-import 'package:poke_dex_app/pages/poke_detail_screen.dart';
-import 'package:poke_dex_app/pages/poke_list_screen.dart';
+import 'package:poke_dex_app/poke_route_information_parser.dart';
+import 'package:poke_dex_app/poke_router_delegate.dart';
 import 'package:poke_dex_app/reducers/poke_dex_app_reducer.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
 import 'package:poke_dex_app/themes/poke_dex_theme_data.dart';
@@ -48,29 +47,10 @@ class PokeDexApp extends StatelessWidget {
         home: StoreConnector<PokeDexAppState, _MainViewModel>(
           converter: (store) => _MainViewModel(state: store.state),
           builder: (BuildContext context, _MainViewModel viewModel) {
-            return Navigator(
-              pages: [
-                const MaterialPage<dynamic>(
-                  key: ValueKey('PokeListPage'),
-                  name: 'PokeListPage',
-                  child: PokeListScreen(),
-                ),
-                if (viewModel.state.pokeDetailState.pokemon != null)
-                  const MaterialPage<dynamic>(
-                    key: ValueKey('PokeDetailPage'),
-                    name: 'PokeDetailPage',
-                    child: PokeDetailScreen(),
-                  ),
-              ],
-              onPopPage: (route, dynamic result) {
-                if (!route.didPop(result)) {
-                  return false;
-                }
-                if (route.settings.name == 'PokeDetailPage') {
-                  store.dispatch(DeselectPokeAction());
-                }
-                return true;
-              },
+            return MaterialApp.router(
+              title: 'PokeDex',
+              routerDelegate: PokeRouterDelegate(store),
+              routeInformationParser: PokeRouteInformationParser(store),
             );
           },
         ),
