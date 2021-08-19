@@ -325,6 +325,15 @@ void main() {
         1,
         'bulbasaur',
         [
+          Name(
+            'Bulbasaur',
+            NamedApiResource(
+              'en',
+              'https://pokeapi.co/api/v2/language/9/',
+            ),
+          ),
+        ],
+        [
           FlavorText(
             'A strange seed was planted on its back at birth.The plant sprouts and grows with this POKéMON',
             NamedApiResource(
@@ -364,6 +373,8 @@ void main() {
               isA<SpeciesResponse>()
                   .having((response) => response.id, 'id', 1)
                   .having((response) => response.name, 'name', 'bulbasaur')
+                  .having((response) => response.names.first.name, 'names name',
+                      'Bulbasaur')
                   .having(
                       (response) => response
                           .flavorTextEntries.first.flavorText.isNotEmpty,

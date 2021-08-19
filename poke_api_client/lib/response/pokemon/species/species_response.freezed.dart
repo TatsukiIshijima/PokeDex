@@ -23,12 +23,14 @@ class _$SpeciesResponseTearOff {
   _SpeciesResponse call(
       @JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'names') List<Name> names,
       @JsonKey(name: 'flavor_text_entries') List<FlavorText> flavorTextEntries,
       @JsonKey(name: 'form_descriptions') List<Description> formDescriptions,
       @JsonKey(name: 'genera') List<GenusResponse> genera) {
     return _SpeciesResponse(
       id,
       name,
+      names,
       flavorTextEntries,
       formDescriptions,
       genera,
@@ -49,6 +51,8 @@ mixin _$SpeciesResponse {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name')
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'names')
+  List<Name> get names => throw _privateConstructorUsedError;
   @JsonKey(name: 'flavor_text_entries')
   List<FlavorText> get flavorTextEntries => throw _privateConstructorUsedError;
   @JsonKey(name: 'form_descriptions')
@@ -70,6 +74,7 @@ abstract class $SpeciesResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'names') List<Name> names,
       @JsonKey(name: 'flavor_text_entries') List<FlavorText> flavorTextEntries,
       @JsonKey(name: 'form_descriptions') List<Description> formDescriptions,
       @JsonKey(name: 'genera') List<GenusResponse> genera});
@@ -88,6 +93,7 @@ class _$SpeciesResponseCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? names = freezed,
     Object? flavorTextEntries = freezed,
     Object? formDescriptions = freezed,
     Object? genera = freezed,
@@ -101,6 +107,10 @@ class _$SpeciesResponseCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      names: names == freezed
+          ? _value.names
+          : names // ignore: cast_nullable_to_non_nullable
+              as List<Name>,
       flavorTextEntries: flavorTextEntries == freezed
           ? _value.flavorTextEntries
           : flavorTextEntries // ignore: cast_nullable_to_non_nullable
@@ -127,6 +137,7 @@ abstract class _$SpeciesResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'names') List<Name> names,
       @JsonKey(name: 'flavor_text_entries') List<FlavorText> flavorTextEntries,
       @JsonKey(name: 'form_descriptions') List<Description> formDescriptions,
       @JsonKey(name: 'genera') List<GenusResponse> genera});
@@ -147,6 +158,7 @@ class __$SpeciesResponseCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? names = freezed,
     Object? flavorTextEntries = freezed,
     Object? formDescriptions = freezed,
     Object? genera = freezed,
@@ -160,6 +172,10 @@ class __$SpeciesResponseCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      names == freezed
+          ? _value.names
+          : names // ignore: cast_nullable_to_non_nullable
+              as List<Name>,
       flavorTextEntries == freezed
           ? _value.flavorTextEntries
           : flavorTextEntries // ignore: cast_nullable_to_non_nullable
@@ -182,6 +198,7 @@ class _$_SpeciesResponse implements _SpeciesResponse {
   const _$_SpeciesResponse(
       @JsonKey(name: 'id') this.id,
       @JsonKey(name: 'name') this.name,
+      @JsonKey(name: 'names') this.names,
       @JsonKey(name: 'flavor_text_entries') this.flavorTextEntries,
       @JsonKey(name: 'form_descriptions') this.formDescriptions,
       @JsonKey(name: 'genera') this.genera);
@@ -196,6 +213,9 @@ class _$_SpeciesResponse implements _SpeciesResponse {
   @JsonKey(name: 'name')
   final String name;
   @override
+  @JsonKey(name: 'names')
+  final List<Name> names;
+  @override
   @JsonKey(name: 'flavor_text_entries')
   final List<FlavorText> flavorTextEntries;
   @override
@@ -207,7 +227,7 @@ class _$_SpeciesResponse implements _SpeciesResponse {
 
   @override
   String toString() {
-    return 'SpeciesResponse(id: $id, name: $name, flavorTextEntries: $flavorTextEntries, formDescriptions: $formDescriptions, genera: $genera)';
+    return 'SpeciesResponse(id: $id, name: $name, names: $names, flavorTextEntries: $flavorTextEntries, formDescriptions: $formDescriptions, genera: $genera)';
   }
 
   @override
@@ -218,6 +238,8 @@ class _$_SpeciesResponse implements _SpeciesResponse {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.names, names) ||
+                const DeepCollectionEquality().equals(other.names, names)) &&
             (identical(other.flavorTextEntries, flavorTextEntries) ||
                 const DeepCollectionEquality()
                     .equals(other.flavorTextEntries, flavorTextEntries)) &&
@@ -233,6 +255,7 @@ class _$_SpeciesResponse implements _SpeciesResponse {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(names) ^
       const DeepCollectionEquality().hash(flavorTextEntries) ^
       const DeepCollectionEquality().hash(formDescriptions) ^
       const DeepCollectionEquality().hash(genera);
@@ -252,6 +275,7 @@ abstract class _SpeciesResponse implements SpeciesResponse {
   const factory _SpeciesResponse(
       @JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'names') List<Name> names,
       @JsonKey(name: 'flavor_text_entries') List<FlavorText> flavorTextEntries,
       @JsonKey(name: 'form_descriptions') List<Description> formDescriptions,
       @JsonKey(name: 'genera') List<GenusResponse> genera) = _$_SpeciesResponse;
@@ -265,6 +289,9 @@ abstract class _SpeciesResponse implements SpeciesResponse {
   @override
   @JsonKey(name: 'name')
   String get name => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'names')
+  List<Name> get names => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'flavor_text_entries')
   List<FlavorText> get flavorTextEntries => throw _privateConstructorUsedError;
