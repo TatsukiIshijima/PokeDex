@@ -16,6 +16,7 @@ _$_PokemonResponse _$_$_PokemonResponseFromJson(Map<String, dynamic> json) {
         .map((e) => PokemonTypeResponse.fromJson(e as Map<String, dynamic>))
         .toList(),
     NamedApiResource.fromJson(json['species'] as Map<String, dynamic>),
+    PokemonSpriteResponse.fromJson(json['sprites'] as Map<String, dynamic>),
   );
 }
 
@@ -27,4 +28,5 @@ Map<String, dynamic> _$_$_PokemonResponseToJson(_$_PokemonResponse instance) =>
       'weight': instance.weight,
       'types': instance.types,
       'species': instance.species,
+      'sprites': instance.sprites,
     };

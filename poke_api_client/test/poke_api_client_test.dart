@@ -12,7 +12,10 @@ import 'package:poke_api_client/poke_api_error.dart';
 import 'package:poke_api_client/response/common/flavor_text.dart';
 import 'package:poke_api_client/response/common/name.dart';
 import 'package:poke_api_client/response/common/named_api_resource.dart';
+import 'package:poke_api_client/response/pokemon/pokemon/pokemon_official_artwork_response.dart';
+import 'package:poke_api_client/response/pokemon/pokemon/pokemon_other_response.dart';
 import 'package:poke_api_client/response/pokemon/pokemon/pokemon_response.dart';
+import 'package:poke_api_client/response/pokemon/pokemon/pokemon_sprite_response.dart';
 import 'package:poke_api_client/response/pokemon/pokemon/pokemon_type_response.dart';
 import 'package:poke_api_client/response/pokemon/pokemon_list_response.dart';
 import 'package:poke_api_client/response/pokemon/species/genus_response.dart';
@@ -267,6 +270,12 @@ void main() {
           'bulbasaur',
           'https://pokeapi.co/api/v2/pokemon-species/1/',
         ),
+        PokemonSpriteResponse(
+          PokemonOtherResponse(
+            PokemonOfficialArtworkResponse(
+                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png'),
+          ),
+        ),
       ).toJson());
 
       when(mockClient.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/1')))
@@ -296,7 +305,12 @@ void main() {
                   .having((response) => response.types[1].type.url.getIndex(),
                       'type2 index', 4)
                   .having((response) => response.species.url.getIndex(),
-                      'species index', 1));
+                      'species index', 1)
+                  .having(
+                      (response) =>
+                          response.sprites.other.officialArtwork.frontDefault,
+                      'officialArtwork front default',
+                      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png'));
         },
         failure: (error) {},
       );
