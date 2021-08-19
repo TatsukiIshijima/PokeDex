@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
 import 'package:poke_dex_app/actions/poke_detail_actions.dart';
 import 'package:poke_dex_app/actions/poke_list_actions.dart';
 import 'package:poke_dex_app/gen/colors.gen.dart';
+import 'package:poke_dex_app/model/pokemon_item.dart';
 import 'package:poke_dex_app/pages/loading_view.dart';
 import 'package:poke_dex_app/pages/poke_grid_view.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
@@ -95,7 +95,7 @@ class _PokeListPageBody extends StatefulWidget {
   final PokeListState pokeListState;
   final Function() onRefresh;
   final Function() onLoadMore;
-  final Function(PokemonResponse) onSelect;
+  final Function(PokemonItem) onSelect;
 
   @override
   State<StatefulWidget> createState() => _PokeListPageBodyState();
@@ -176,5 +176,5 @@ class _PokeListViewModel {
   final PokeListState state;
   final Function() onRefresh;
   final Function() onLoadMore;
-  final Function(PokemonResponse) onSelect;
+  final Function(PokemonItem) onSelect;
 }

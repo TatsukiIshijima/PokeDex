@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
 import 'package:poke_dex_app/actions/poke_detail_actions.dart';
+import 'package:poke_dex_app/model/pokemon_item.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -19,12 +19,12 @@ class PokeRouteInformationParser
       if (uri.pathSegments[0] != 'pokemon') {
         return store.state;
       }
-      final name = uri.pathSegments[1];
-      if (name.isEmpty) {
+      final index = uri.pathSegments[1];
+      if (index.isEmpty) {
         return store.state;
       }
-      // FIXME:index指定
-      store.dispatch(SelectPokeAction(PokemonResponse(name, '1')));
+      // FIXME:imageUrl対応
+      store.dispatch(SelectPokeAction(PokemonItem(index: index, imageUrl: '')));
     } else {
       store.dispatch(DeselectPokeAction());
     }
@@ -35,7 +35,7 @@ class PokeRouteInformationParser
   RouteInformation? restoreRouteInformation(PokeDexAppState configuration) {
     if (configuration.pokeDetailState.pokemon != null) {
       return RouteInformation(
-          location: '/pokemon/${configuration.pokeDetailState.pokemon?.name}');
+          location: '/pokemon/${configuration.pokeDetailState.pokemon?.index}');
     }
     return const RouteInformation(location: '/');
   }

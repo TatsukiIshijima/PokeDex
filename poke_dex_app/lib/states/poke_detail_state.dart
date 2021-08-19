@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
+import 'package:poke_dex_app/model/pokemon_item.dart';
 
 @immutable
 class PokeDetailState {
@@ -7,7 +7,7 @@ class PokeDetailState {
     this.pokemon,
   });
 
-  final PokemonResponse? pokemon;
+  final PokemonItem? pokemon;
 
   @override
   int get hashCode => pokemon.hashCode;

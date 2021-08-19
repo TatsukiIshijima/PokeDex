@@ -1,9 +1,9 @@
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
+import 'package:poke_dex_app/model/pokemon_item.dart';
 
 class SelectPokeAction {
   SelectPokeAction(this.pokemon);
 
-  final PokemonResponse pokemon;
+  final PokemonItem pokemon;
 }
 
 class DeselectPokeAction {

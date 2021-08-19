@@ -1,8 +1,8 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
 import 'package:poke_dex_app/gen/assets.gen.dart';
 import 'package:poke_dex_app/gen/colors.gen.dart';
+import 'package:poke_dex_app/model/pokemon_item.dart';
 
 class PokeGridView extends StatelessWidget {
   const PokeGridView({
@@ -11,7 +11,7 @@ class PokeGridView extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
-  final List<PokemonResponse> pokemonList;
+  final List<PokemonItem> pokemonList;
   final Function(int index)? onTap;
 
   @override
@@ -31,8 +31,8 @@ class PokeGridView extends StatelessWidget {
               }
             },
             child: _PokemonItem(
-              pokeName: pokemonList[index].name,
-              imageUrl: pokemonList[index].getImageUrl(),
+              number: pokemonList[index].index,
+              imageUrl: pokemonList[index].imageUrl,
             ),
           );
         },
@@ -45,13 +45,13 @@ class PokeGridView extends StatelessWidget {
 class _PokemonItem extends StatelessWidget {
   const _PokemonItem({
     Key? key,
-    required this.pokeName,
+    required this.number,
     required this.imageUrl,
     this.imageWidth = 120,
     this.imageHeight = 120,
   }) : super(key: key);
 
-  final String pokeName;
+  final String number;
   final String imageUrl;
   final double imageWidth;
   final double imageHeight;
@@ -73,7 +73,7 @@ class _PokemonItem extends StatelessWidget {
             return Container();
           case LoadState.completed:
             return _PokemonItemPalette(
-              pokeName: pokeName,
+              number: number,
               pokeImage: state.imageProvider,
               imageWidth: imageWidth,
               imageHeight: imageHeight,
@@ -88,13 +88,13 @@ class _PokemonItemPalette extends StatelessWidget {
   const _PokemonItemPalette({
     Key? key,
     required this.pokeImage,
-    required this.pokeName,
+    required this.number,
     required this.imageWidth,
     required this.imageHeight,
   }) : super(key: key);
 
   final ImageProvider pokeImage;
-  final String pokeName;
+  final String number;
   final double imageWidth;
   final double imageHeight;
 
@@ -124,7 +124,7 @@ class _PokemonItemPalette extends StatelessWidget {
             height: imageHeight,
           ),
           Text(
-            pokeName,
+            number,
             style: const TextStyle(
               color: ColorName.white,
               fontSize: 16,

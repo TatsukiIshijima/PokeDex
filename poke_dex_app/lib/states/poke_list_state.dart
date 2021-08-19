@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
+import 'package:poke_dex_app/model/pokemon_item.dart';
 import 'package:poke_dex_app/states/error_state.dart';
 import 'package:poke_dex_app/states/loading_state.dart';
 
@@ -15,7 +15,7 @@ class PokeListState {
 
   final int offset;
   final int limit;
-  final List<PokemonResponse> pokemonList;
+  final List<PokemonItem> pokemonList;
   final LoadingState loadingState;
   final ErrorState errorState;
 

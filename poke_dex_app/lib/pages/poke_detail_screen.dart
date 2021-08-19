@@ -20,7 +20,7 @@ class PokeDetailScreen extends StatelessWidget {
           BuildContext context,
           _PokeDetailViewModel viewModel,
         ) {
-          final url = viewModel.state.pokemon?.getImageUrl() ?? '';
+          final url = viewModel.state.pokemon?.imageUrl ?? '';
           // 空文字で画像取得しようとすると Bas State になるためチェック必須
           if (url.isEmpty) {
             return Container();
@@ -63,7 +63,7 @@ class PokeDetailScreen extends StatelessWidget {
                 ),
                 sliver: SliverToBoxAdapter(
                   child: Text(
-                    viewModel.state.pokemon?.name ?? '',
+                    viewModel.state.pokemon?.index ?? '',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: ColorName.white,
