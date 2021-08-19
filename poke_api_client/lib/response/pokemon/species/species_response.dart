@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:poke_api_client/response/common/description.dart';
 import 'package:poke_api_client/response/common/flavor_text.dart';
-import 'package:poke_api_client/response/pokemon/genus_response.dart';
+import 'package:poke_api_client/response/pokemon/species/genus_response.dart';
 
 part 'species_response.freezed.dart';
 part 'species_response.g.dart';

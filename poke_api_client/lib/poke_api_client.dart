@@ -7,8 +7,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:poke_api_client/poke_api_error.dart';
 import 'package:poke_api_client/poke_api_result.dart';
+import 'package:poke_api_client/response/pokemon/pokemon/pokemon_response.dart';
 import 'package:poke_api_client/response/pokemon/pokemon_list_response.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
 import 'package:poke_api_client/response/pokemon/species/species_response.dart';
 import 'package:poke_api_client/response/pokemon/types/type_response.dart';
 

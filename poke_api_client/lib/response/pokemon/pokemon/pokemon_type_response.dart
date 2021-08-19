@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:poke_api_client/response/common/name.dart';
 import 'package:poke_api_client/response/common/named_api_resource.dart';
 
 part 'pokemon_type_response.freezed.dart';

@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:poke_api_client/response/common/named_api_resource.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
 
 part 'pokemon_list_response.freezed.dart';
 part 'pokemon_list_response.g.dart';

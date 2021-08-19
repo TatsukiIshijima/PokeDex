@@ -12,10 +12,10 @@ import 'package:poke_api_client/poke_api_error.dart';
 import 'package:poke_api_client/response/common/flavor_text.dart';
 import 'package:poke_api_client/response/common/name.dart';
 import 'package:poke_api_client/response/common/named_api_resource.dart';
-import 'package:poke_api_client/response/pokemon/genus_response.dart';
+import 'package:poke_api_client/response/pokemon/pokemon/pokemon_response.dart';
+import 'package:poke_api_client/response/pokemon/pokemon/pokemon_type_response.dart';
 import 'package:poke_api_client/response/pokemon/pokemon_list_response.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_type_response.dart';
+import 'package:poke_api_client/response/pokemon/species/genus_response.dart';
 import 'package:poke_api_client/response/pokemon/species/species_response.dart';
 import 'package:poke_api_client/response/pokemon/types/type_response.dart';
 
