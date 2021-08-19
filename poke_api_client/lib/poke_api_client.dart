@@ -8,6 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:poke_api_client/poke_api_error.dart';
 import 'package:poke_api_client/poke_api_result.dart';
 import 'package:poke_api_client/response/pokemon/pokemon_list_response.dart';
+import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
+import 'package:poke_api_client/response/pokemon/species/species_response.dart';
+import 'package:poke_api_client/response/pokemon/types/type_response.dart';
 
 const _domain = 'pokeapi.co';
 const _version = 'v2';
@@ -28,6 +31,12 @@ abstract class ApiClient {
 abstract class IPokeApiClient {
   Future<PokeApiResult<PokemonListResponse>> getPokemonList(
       {int limit = 20, int offset = 0});
+
+  Future<PokeApiResult<PokemonResponse>> getPokemon(int id);
+
+  Future<PokeApiResult<SpeciesResponse>> getPokemonSpecies(int id);
+
+  Future<PokeApiResult<TypeResponse>> getTypes(int id);
 }
 
 class PokeApiClient extends ApiClient implements IPokeApiClient {
@@ -92,5 +101,23 @@ class PokeApiClient extends ApiClient implements IPokeApiClient {
       {int limit = 20, int offset = 0}) async {
     final url = '$_baseUrl/pokemon/?limit=$limit&offset=$offset';
     return _responseJson(url, (json) => PokemonListResponse.fromJson(json));
+  }
+
+  @override
+  Future<PokeApiResult<PokemonResponse>> getPokemon(int id) async {
+    final url = '$_baseUrl/pokemon/$id';
+    return _responseJson(url, (json) => PokemonResponse.fromJson(json));
+  }
+
+  @override
+  Future<PokeApiResult<SpeciesResponse>> getPokemonSpecies(int id) async {
+    final url = '$_baseUrl/pokemon-species/$id';
+    return _responseJson(url, (json) => SpeciesResponse.fromJson(json));
+  }
+
+  @override
+  Future<PokeApiResult<TypeResponse>> getTypes(int id) async {
+    final url = '$_baseUrl/type/$id';
+    return _responseJson(url, (json) => TypeResponse.fromJson(json));
   }
 }
