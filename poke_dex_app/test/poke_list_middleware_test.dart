@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:poke_api_client/poke_api_result.dart';
+import 'package:poke_api_client/response/common/named_api_resource.dart';
 import 'package:poke_api_client/response/pokemon/pokemon_list_response.dart';
-import 'package:poke_api_client/response/pokemon/pokemon_response.dart';
 import 'package:poke_dex_app/actions/poke_list_actions.dart';
 import 'package:poke_dex_app/middlewares/poke_dex_app_middleware.dart';
 import 'package:poke_dex_app/reducers/poke_dex_app_reducer.dart';
@@ -34,7 +34,7 @@ void main() {
             'https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20',
             null,
             [
-              PokemonResponse(
+              NamedApiResource(
                   'bulbasaur', 'https://pokeapi.co/api/v2/pokemon/1/'),
             ],
           ),
