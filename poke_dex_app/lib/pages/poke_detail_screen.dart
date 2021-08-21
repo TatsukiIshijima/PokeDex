@@ -1,6 +1,8 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:poke_dex_app/actions/poke_detail_actions.dart';
+import 'package:poke_dex_app/extension/int_extension.dart';
 import 'package:poke_dex_app/gen/colors.gen.dart';
 import 'package:poke_dex_app/states/poke_detail_state.dart';
 import 'package:poke_dex_app/states/poke_dex_app_state.dart';
@@ -13,6 +15,10 @@ class PokeDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorName.background,
       body: StoreConnector<PokeDexAppState, _PokeDetailViewModel>(
+        onInit: (store) {
+          store.dispatch(FetchPokeDetailAction(
+              store.state.pokeDetailState.selectPokemon?.index ?? 1));
+        },
         converter: (store) => _PokeDetailViewModel(
           state: store.state.pokeDetailState,
         ),
@@ -20,7 +26,7 @@ class PokeDetailScreen extends StatelessWidget {
           BuildContext context,
           _PokeDetailViewModel viewModel,
         ) {
-          final url = viewModel.state.pokemon?.imageUrl ?? '';
+          final url = viewModel.state.selectPokemon?.imageUrl ?? '';
           // 空文字で画像取得しようとすると Bas State になるためチェック必須
           if (url.isEmpty) {
             return Container();
@@ -63,7 +69,7 @@ class PokeDetailScreen extends StatelessWidget {
                 ),
                 sliver: SliverToBoxAdapter(
                   child: Text(
-                    viewModel.state.pokemon?.index ?? '',
+                    viewModel.state.selectPokemon?.index.padLeft() ?? '',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: ColorName.white,
