@@ -1,6 +1,5 @@
 import 'package:poke_api_client/extension/string_extension.dart';
 import 'package:poke_api_client/response/common/named_api_resource.dart';
-import 'package:poke_dex_app/extension/int_extension.dart';
 
 class PokemonItem {
   const PokemonItem({
@@ -10,11 +9,11 @@ class PokemonItem {
 
   factory PokemonItem.from(NamedApiResource namedApiResource) {
     return PokemonItem(
-      index: namedApiResource.url.getIndex().padLeft(),
+      index: namedApiResource.url.getIndex(),
       imageUrl: namedApiResource.url.getImageUrl(),
     );
   }
 
-  final String index;
+  final int index;
   final String imageUrl;
 }

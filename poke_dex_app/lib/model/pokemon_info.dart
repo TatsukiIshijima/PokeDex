@@ -17,7 +17,7 @@ class PokemonInfo {
   factory PokemonInfo.from(
     PokemonResponse pokemonResponse,
     SpeciesResponse speciesResponse,
-    TypeResponse typeResponse,
+    List<TypeResponse> typeResponses,
   ) {
     final name = speciesResponse.names
         .where((name) => name.language.name.contains('ja'))
@@ -33,9 +33,11 @@ class PokemonInfo {
             flavorText.version.name.contains('shield'))
         .map((flavorText) => flavorText.flavorText)
         .first;
-    final types = typeResponse.names
-        .where((name) => name.language.name.contains('ja'))
-        .map((name) => name.name)
+    final types = typeResponses
+        .map((response) => response.names
+            .where((name) => name.language.name.contains('ja'))
+            .map((name) => name.name)
+            .first)
         .toList();
 
     return PokemonInfo(

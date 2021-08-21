@@ -24,7 +24,8 @@ class PokeRouteInformationParser
         return store.state;
       }
       // FIXME:imageUrl対応
-      store.dispatch(SelectPokeAction(PokemonItem(index: index, imageUrl: '')));
+      store.dispatch(
+          SelectPokeAction(PokemonItem(index: int.parse(index), imageUrl: '')));
     } else {
       store.dispatch(DeselectPokeAction());
     }
@@ -33,9 +34,10 @@ class PokeRouteInformationParser
 
   @override
   RouteInformation? restoreRouteInformation(PokeDexAppState configuration) {
-    if (configuration.pokeDetailState.pokemon != null) {
+    if (configuration.pokeDetailState.selectPokemon != null) {
       return RouteInformation(
-          location: '/pokemon/${configuration.pokeDetailState.pokemon?.index}');
+          location:
+              '/pokemon/${configuration.pokeDetailState.selectPokemon?.index}');
     }
     return const RouteInformation(location: '/');
   }

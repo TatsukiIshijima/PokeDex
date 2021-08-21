@@ -1,5 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:poke_dex_app/extension/int_extension.dart';
 import 'package:poke_dex_app/gen/assets.gen.dart';
 import 'package:poke_dex_app/gen/colors.gen.dart';
 import 'package:poke_dex_app/model/pokemon_item.dart';
@@ -31,7 +32,7 @@ class PokeGridView extends StatelessWidget {
               }
             },
             child: _PokemonItem(
-              number: pokemonList[index].index,
+              number: pokemonList[index].index.padLeft(),
               imageUrl: pokemonList[index].imageUrl,
             ),
           );

@@ -20,7 +20,7 @@ class PokeRouterDelegate extends RouterDelegate<PokeDexAppState>
           name: 'PokeListPage',
           child: PokeListScreen(),
         ),
-        if (store.state.pokeDetailState.pokemon != null)
+        if (store.state.pokeDetailState.selectPokemon != null)
           const MaterialPage<dynamic>(
             key: ValueKey('PokeDetailPage'),
             name: 'PokeDetailPage',
@@ -52,7 +52,7 @@ class PokeRouterDelegate extends RouterDelegate<PokeDexAppState>
   Future<bool> popRoute() {
     // Android の Back Key 対応
     // 参考：https://medium.com/geekculture/a-simpler-guide-to-flutter-navigator-2-0-part-i-70623cedc93b
-    if (store.state.pokeDetailState.pokemon != null) {
+    if (store.state.pokeDetailState.selectPokemon != null) {
       store.dispatch(DeselectPokeAction());
       return Future.value(true);
     }
