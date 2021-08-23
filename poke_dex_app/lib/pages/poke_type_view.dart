@@ -6,9 +6,9 @@ class PokeTypeView extends StatelessWidget {
   const PokeTypeView({
     Key? key,
     required this.types,
-    required this.typeItemWidth,
-    required this.typeItemHeight,
-    required this.space,
+    this.typeItemWidth = 126.0,
+    this.typeItemHeight = 36.0,
+    this.space = 20.0,
   }) : super(key: key);
 
   final List<String> types;
@@ -74,6 +74,7 @@ class _TypeText extends StatelessWidget {
           type,
           style: TextStyle(
             color: textColor,
+            fontSize: 16,
           ),
         ),
       ),
