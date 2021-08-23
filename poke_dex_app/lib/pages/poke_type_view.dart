@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poke_dex_app/extension/string_extension.dart';
 import 'package:poke_dex_app/gen/colors.gen.dart';
 
 class PokeTypeView extends StatelessWidget {
@@ -30,7 +31,7 @@ class PokeTypeView extends StatelessWidget {
             ),
             child: _TypeText(
               type: types[index],
-              bgColor: ColorName.dark,
+              bgColor: types[index].toTypeColor(),
             ),
           );
         },
